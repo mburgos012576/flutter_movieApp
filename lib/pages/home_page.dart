@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   List movies = [];
   String pathImage = "https://image.tmdb.org/t/p/w500";
 
@@ -21,7 +20,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   getDataMovie() async {
-
     String api_key = "077c6b8e215715b477754b84846c0f95";
     String _path =
         "https://api.themoviedb.org/3/discover/movie?api_key=$api_key";
@@ -31,7 +29,6 @@ class _HomePageState extends State<HomePage> {
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
       movies = data["results"];
-      print(movies.length);
       setState(() {});
     }
   }
@@ -124,46 +121,91 @@ class _HomePageState extends State<HomePage> {
               Text(
                 "Top Movies",
                 style: TextStyle(
-                  fontSize: 40,
-                  color: Theme.of(context).accentColor,
-                  fontWeight: FontWeight.w500
-                ),
+                    fontSize: 40,
+                    color: Theme.of(context).accentColor,
+                    fontWeight: FontWeight.w500),
               ),
               ListView.builder(
                 primary: true,
                 shrinkWrap: true,
                 physics: ScrollPhysics(),
                 itemCount: movies.length,
-                itemBuilder: (BuildContext context, int index){
-
+                itemBuilder: (BuildContext context, int index) {
                   String urlImage = pathImage + movies[index]["poster_path"];
 
-                  return Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        margin: EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.0),
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(urlImage),
-                          )
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xff222222),
+                      borderRadius: BorderRadius.circular(12.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xff222222).withOpacity(0.9),
+                          offset: Offset(0, 4),
+                          blurRadius: 10.0
                         ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(movies[index]["original_title"]),
-                              Text(movies[index]["overview"], maxLines: 3,overflow: TextOverflow.ellipsis,),
-                            ],
+                      ],
+                    ),
+                    margin: EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 100,
+                          margin: EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.0),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(urlImage),
+                              )),
+                        ),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.only(right: 8.0, left: 5.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  movies[index]["original_title"],
+                                  style: TextStyle(fontSize: 18.0),
+                                ),
+                                SizedBox(
+                                  height: 6.0,
+                                ),
+                                Text(
+                                  movies[index]["overview"],
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  // textAlign: TextAlign.justify,
+                                  style: TextStyle(
+                                    color: Colors.white.withOpacity(0.6),
+                                    fontSize: 13.0
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 4.0,
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      size: 15.0,
+                                      color: Theme.of(context).accentColor,
+                                    ),
+                                    Text(
+                                      movies[index]["popularity"].toString(),
+                                      style: TextStyle(
+                                        color: Theme.of(context).accentColor,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 },
               ),
