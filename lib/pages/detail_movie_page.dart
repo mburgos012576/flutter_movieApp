@@ -33,18 +33,30 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
       if(response.statusCode == 200){
         Map<String, dynamic> myMap = json.decode(response.body);
         movieDetail = MovieDetail.fromJson(myMap);
-        print(movieDetail!.originalTitle);
+        setState(() {
+
+        });
       }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Example"),
-      ),
-      body: Center(
-        child: Text(widget.movie.title),
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
+          return <Widget>[
+            SliverAppBar(
+              expandedHeight: 260.0,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text("Mi película favorita"),
+                background: Image.network("https://i2.wp.com/codigoespagueti.com/wp-content/uploads/2021/02/batman-dc-comics.jpg?fit=1280%2C720&quality=80&ssl=1"),
+              ),
+            ),
+          ];
+        },
+        body: SafeArea(
+          child: Container(),
+        ),
       ),
     );
   }
