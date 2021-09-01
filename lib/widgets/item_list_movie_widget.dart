@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_codigo3_movieapp/models/movie_model.dart';
+import 'package:flutter_codigo3_movieapp/utils/constants.dart';
 
 class ItemListMovieWidget extends StatelessWidget {
 
-  String title;
-  String overview;
-  String image;
-  double popularity;
+  Movie movie;
 
   ItemListMovieWidget({
-    required this.title,
-    required this.overview,
-    required this.image,
-    required this.popularity,
+    required this.movie,
   });
 
   @override
@@ -38,7 +34,7 @@ class ItemListMovieWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12.0),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(this.image),
+                  image: NetworkImage(pathImage + movie.posterPath),
                 )),
           ),
           Expanded(
@@ -48,14 +44,14 @@ class ItemListMovieWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    this.title,
+                    movie.title,
                     style: TextStyle(fontSize: 18.0),
                   ),
                   SizedBox(
                     height: 6.0,
                   ),
                   Text(
-                    this.overview,
+                    movie.overview,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     // textAlign: TextAlign.justify,
@@ -73,7 +69,7 @@ class ItemListMovieWidget extends StatelessWidget {
                         color: Theme.of(context).accentColor,
                       ),
                       Text(
-                        this.popularity.toString(),
+                        movie.popularity.toString(),
                         style: TextStyle(
                           color: Theme.of(context).accentColor,
                         ),

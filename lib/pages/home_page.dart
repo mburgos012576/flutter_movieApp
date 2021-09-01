@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // List movies = [];
   List<Movie> movies = [];
-  String pathImage = "https://image.tmdb.org/t/p/w500";
+
 
   @override
   initState() {
@@ -34,9 +34,7 @@ class _HomePageState extends State<HomePage> {
 
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
-      // movies = data["results"];
       movies = data["results"].map<Movie>((item)=>Movie.fromJson(item)).toList();
-
       setState(() {});
     }
   }
@@ -87,14 +85,12 @@ class _HomePageState extends State<HomePage> {
                 physics: ScrollPhysics(),
                 itemCount: movies.length,
                 itemBuilder: (BuildContext context, int index) {
-                  // String urlImage = pathImage + movies[index]["poster_path"];
-                  // return ItemListMovieWidget(
-                  //   title: movies[index]["original_title"],
-                  //   overview: movies[index]["overview"],
-                  //   image: urlImage,
-                  //   popularity: movies[index]["popularity"],
-                  // );
-                  return Text("asdsd");
+                  // Movie myMovie = movies[index];
+                  // myMovie.posterPath = "asdsadsd.jpg";
+                  return ItemListMovieWidget(
+                    // movie: myMovie,
+                    movie: movies[index],
+                  );
                 },
               ),
             ],
