@@ -17,6 +17,7 @@ class _HomePageState extends State<HomePage> {
   // List movies = [];
   List<Movie> movies = [];
   ScrollController _scrollController = new ScrollController();
+  int page=1;
 
   @override
   initState() {
@@ -24,22 +25,34 @@ class _HomePageState extends State<HomePage> {
     getDataMovie();
     _scrollController.addListener(() {
       if(_scrollController.position.pixels == _scrollController.position.maxScrollExtent){
-        print("Estas en la parte final");
+        print("Estas en final de la pagina $page");
+        page++;
+        getDataMoviePage();
+        print(movies.length);
       }
     });
   }
 
   getDataMovie() async {
-
     String _path = "$urlBase/discover/movie?api_key=$apiKey";
-
     Uri _uri = Uri.parse(_path);
-
     http.Response response = await http.get(_uri);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
       movies = data["results"].map<Movie>((item)=>Movie.fromJson(item)).toList();
+      setState(() {});
+    }
+  }
+
+  getDataMoviePage() async {
+    String _path = "$urlBase/discover/movie?api_key=$apiKey&page=$page";
+    Uri _uri = Uri.parse(_path);
+    http.Response response = await http.get(_uri);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+      movies = movies + data["results"].map<Movie>((item)=>Movie.fromJson(item)).toList();
       setState(() {});
     }
   }

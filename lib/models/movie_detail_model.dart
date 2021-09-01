@@ -1,10 +1,3 @@
-
-
-// To parse this JSON data, do
-//
-//     final movieDetail = movieDetailFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 MovieDetail movieDetailFromJson(String str) => MovieDetail.fromJson(json.decode(str));
@@ -165,7 +158,7 @@ class ProductionCompany {
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "logo_path": logoPath == null ? "" : logoPath,
+    "logo_path": logoPath,
     "name": name,
     "origin_country": originCountry,
   };

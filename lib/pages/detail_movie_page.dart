@@ -24,6 +24,9 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
   initState(){
     super.initState();
     getDataMovie();
+    setState(() {
+
+    });
   }
 
   getDataMovie() async {
@@ -48,8 +51,8 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
             SliverAppBar(
               expandedHeight: 260.0,
               flexibleSpace: FlexibleSpaceBar(
-                title: Text("Mi película favorita"),
-                background: Image.network("https://i2.wp.com/codigoespagueti.com/wp-content/uploads/2021/02/batman-dc-comics.jpg?fit=1280%2C720&quality=80&ssl=1"),
+                title: Text(movieDetail!.title),
+                background: Image.network(pathImage + movieDetail!.backdropPath),
               ),
             ),
           ];
