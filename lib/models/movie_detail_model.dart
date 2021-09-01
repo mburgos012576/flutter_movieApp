@@ -12,6 +12,9 @@ MovieDetail movieDetailFromJson(String str) => MovieDetail.fromJson(json.decode(
 String movieDetailToJson(MovieDetail data) => json.encode(data.toJson());
 
 class MovieDetail {
+  bool adult;
+
+  String backdropPath;
   MovieDetail({
     required this.adult,
     required this.backdropPath,
@@ -39,9 +42,6 @@ class MovieDetail {
     required this.voteAverage,
     required this.voteCount,
   });
-
-  bool adult;
-  String backdropPath;
   dynamic belongsToCollection;
   int budget;
   List<Genre> genres;
@@ -125,8 +125,8 @@ class MovieDetail {
 
 class Genre {
   Genre({
-    @required this.id,
-    @required this.name,
+    required this.id,
+    required this.name,
   });
 
   int id;
@@ -145,10 +145,10 @@ class Genre {
 
 class ProductionCompany {
   ProductionCompany({
-    @required this.id,
-    @required this.logoPath,
-    @required this.name,
-    @required this.originCountry,
+    required this.id,
+    required this.logoPath,
+    required this.name,
+    required this.originCountry,
   });
 
   int id;
@@ -158,14 +158,14 @@ class ProductionCompany {
 
   factory ProductionCompany.fromJson(Map<String, dynamic> json) => ProductionCompany(
     id: json["id"],
-    logoPath: json["logo_path"] == null ? null : json["logo_path"],
+    logoPath: json["logo_path"] == null ? "" : json["logo_path"],
     name: json["name"],
     originCountry: json["origin_country"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "logo_path": logoPath == null ? null : logoPath,
+    "logo_path": logoPath == null ? "" : logoPath,
     "name": name,
     "origin_country": originCountry,
   };
@@ -173,8 +173,8 @@ class ProductionCompany {
 
 class ProductionCountry {
   ProductionCountry({
-    @required this.iso31661,
-    @required this.name,
+    required this.iso31661,
+    required this.name,
   });
 
   String iso31661;
@@ -193,9 +193,9 @@ class ProductionCountry {
 
 class SpokenLanguage {
   SpokenLanguage({
-    @required this.englishName,
-    @required this.iso6391,
-    @required this.name,
+    required this.englishName,
+    required this.iso6391,
+    required this.name,
   });
 
   String englishName;
