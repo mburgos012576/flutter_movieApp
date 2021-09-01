@@ -1,14 +1,44 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_codigo3_movieapp/models/movie_model.dart';
+import 'package:flutter_codigo3_movieapp/utils/constants.dart';
+import 'package:http/http.dart' as http;
 
-class DetailMoviePage extends StatelessWidget {
+class DetailMoviePage extends StatefulWidget {
+
+  Movie movie;
+  DetailMoviePage({required this.movie});
+
+  @override
+  _DetailMoviePageState createState() => _DetailMoviePageState();
+}
+
+class _DetailMoviePageState extends State<DetailMoviePage> {
+
+  @override
+  initState(){
+    super.initState();
+    getDataMovie();
+  }
+
+  getDataMovie() async {
+      String path = "$urlBase/movie/${widget.movie.id}?api_key=$apiKey";
+      Uri _uri = Uri.parse(path);
+      http.Response response = await http.get(_uri);
+      if(response.statusCode == 200){
+        print(response.body);
+      }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Example"),
       ),
-      body: Center(),
+      body: Center(
+        child: Text(widget.movie.title),
+      ),
     );
   }
 }
